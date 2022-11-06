@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>460</width>
+    <height>413</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Brief Video Controller</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_duration">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Video Duration</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_weight">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>48</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Weight</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="WeightBox">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>10</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>5000</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_height">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>60</y>
+      <width>48</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Height</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="HeightBox">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>55</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>5000</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_fps">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>72</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Framerate</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="FPS">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>50</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_filepath">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>100</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>H.264 Output Path</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="filePath_H264">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>98</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="maxLength">
+     <number>32767</number>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="dragEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Apply">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>320</y>
+      <width>211</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apply Settings</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Preview">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>280</y>
+      <width>211</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Preview</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_recordImme">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>191</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Record Immediately</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_launchPreview">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>224</y>
+      <width>351</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Launch Preview In Recording</string>
+    </property>
+   </widget>
+   <widget class="QTimeEdit" name="timeEdit_duration">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>12</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="time">
+     <time>
+      <hour>0</hour>
+      <minute>20</minute>
+      <second>0</second>
+     </time>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_H264File">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>100</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_filepath_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>152</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>MP4 Output Path</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_MP4File">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>150</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="filePath_MP4">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>150</y>
+      <width>231</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="maxLength">
+     <number>32767</number>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="dragEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_autoConvert">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>200</y>
+      <width>381</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Convrt Videos Automatically After Recording</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_recoedEachHour">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>250</y>
+      <width>241</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Recording each hour</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>320</y>
+      <width>191</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open Output Folder</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>460</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen_Recording"/>
+    <addaction name="actionOpen_Setting_File"/>
+    <addaction name="actionSave_Settings"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen_Recording">
+   <property name="text">
+    <string>Open Recording</string>
+   </property>
+  </action>
+  <action name="actionOpen_Setting_File">
+   <property name="text">
+    <string>Open Settings</string>
+   </property>
+  </action>
+  <action name="actionSave_Settings">
+   <property name="text">
+    <string>Save Settings</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>HeightBox</tabstop>
+  <tabstop>WeightBox</tabstop>
+  <tabstop>pushButton_Preview</tabstop>
+  <tabstop>filePath_H264</tabstop>
+  <tabstop>FPS</tabstop>
+  <tabstop>pushButton_Apply</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_Apply</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>applySettings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>388</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>66</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_Preview</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>previewImme()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>300</x>
+     <y>333</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>164</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_H264File</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openOutputH264File()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>409</x>
+     <y>154</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>309</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_recordImme</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>recordImme()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_MP4File</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openOutputMP4File()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>429</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>192</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openOutputFolder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>153</x>
+     <y>365</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_recoedEachHour</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>recordEachHour_disableImmeButton()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>916</x>
+     <y>245</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>443</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>applySettings()</slot>
+  <slot>previewImme()</slot>
+  <slot>openOutputH264File()</slot>
+  <slot>recordImme()</slot>
+  <slot>openOutputMP4File()</slot>
+  <slot>openOutputFolder()</slot>
+  <slot>recordEachHour_disableImmeButton()</slot>
+ </slots>
+</ui>
