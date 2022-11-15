@@ -17,6 +17,7 @@ def Log_Init() ->  None:
     formatter = logging.Formatter('%(asctime)-12s: [%(levelname)-8s] %(message)s')
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
+    logging.debug('Log System Started')
     return
 
 
