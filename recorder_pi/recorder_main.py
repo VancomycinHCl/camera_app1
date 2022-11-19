@@ -6,24 +6,36 @@ from record import *
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from initSetting import *
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal,QTimer,QMutex
 import driver.camera_test as A
 import log_generate as log
-from PyQt5.QtCore import QTimer
 
-class TimerThread(QtCore.QThread):
+class TimerThread(QThread):
     timerSignal = pyqtSignal(str)
     def __init__(self,timeInterval,functionPtr = None):
         super(TimerThread, self).__init__()
         #self.trigger = QtCore.pyqtSignal(bool)
         self.timerInterval = timeInterval
         self.function = functionPtr
-        self.ThreadTimer()
+        executable = self.CheckPtrCallable()
+        if executable:
+            self.ThreadTimer()
+        else:
+            self.finished()
     def ThreadTimer(self):
         self.threadTimer = QTimer()
         self.threadTimer.setInterval(self.timerInterval)
         self.timer.timeout.connect(self.function)
         self.threadTimer.setSingleShot(True)
+
+    def CheckPtrCallable(self) -> bool:
+        if callable(self.function):
+            logging.debug("The function given can be triggered")
+            return True
+        else:
+            logging.warning("The function Ptr is not a iterable instance.")
+            return False
+
     def run(self):
         currentTime = QtCore.QTime.currentTime()
         logging.info("A new thread will be created for timing and automatic recording")
