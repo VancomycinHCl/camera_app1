@@ -9,18 +9,29 @@ from initSetting import *
 from PyQt5.QtCore import QThread, pyqtSignal
 import driver.camera_test as A
 import log_generate as log
+from PyQt5.QtCore import QTimer
 
 class TimerThread(QtCore.QThread):
     timerSignal = pyqtSignal(str)
-    def __init__(self,t):
+    def __init__(self,timeInterval,functionPtr = None):
         super(TimerThread, self).__init__()
         #self.trigger = QtCore.pyqtSignal(bool)
-        self.t = t
+        self.timerInterval = timeInterval
+        self.function = functionPtr
+    def ThreadTimer(self):
+        self.threadTimer = QTimer()
+        self.threadTimer.setInterval(self.timerInterval)
+        self.threadTimer.start()
     def run(self):
         currentTime = QtCore.QTime.currentTime()
         logging.info("A new thread will be created for timing and automatic recording")
         logging.info(self.t)
         time.sleep(10)
+        try:
+            self.function()
+        except Exception as e:
+            logging.warning("The function Ptr is not a iterable instance.")
+            logging.warning(e)
         self.timerSignal.emit(str(self.t))
         #print(currentTime.hour())
 
