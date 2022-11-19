@@ -18,17 +18,18 @@ class TimerThread(QtCore.QThread):
         #self.trigger = QtCore.pyqtSignal(bool)
         self.timerInterval = timeInterval
         self.function = functionPtr
+        self.ThreadTimer()
     def ThreadTimer(self):
         self.threadTimer = QTimer()
         self.threadTimer.setInterval(self.timerInterval)
-        self.threadTimer.start()
+        self.timer.timeout.connect(self.function)
+        self.threadTimer.setSingleShot(True)
     def run(self):
         currentTime = QtCore.QTime.currentTime()
         logging.info("A new thread will be created for timing and automatic recording")
         logging.info(self.t)
-        time.sleep(10)
         try:
-            self.function()
+            self.threadTimer.start()
         except Exception as e:
             logging.warning("The function Ptr is not a iterable instance.")
             logging.warning(e)
@@ -46,18 +47,18 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.recordImme_flag = False
         log.Log_Init()
         self.settings = {
-                         "H264_Folder":None,
-                         "MP4_Folder":None,
-                         "width":None,
-                         "height":None,
-                         "duration":None,
-                         "iniFile":None,
-                         "framerate":None
+                         "H264_Folder": None,
+                         "MP4_Folder": None,
+                         "width": None,
+                         "height": None,
+                         "duration": "0",
+                         "iniFile": None,
+                         "framerate": None
                          }
-        #QtWidgets.QFileDialog.open(self.actionSave_Settings)
-        self.actionOpen_Setting_File.triggered.connect(lambda :self.Open_Setting_File())
-        self.actionSave_Settings.triggered.connect(lambda :self.Save_Setting_File())
-        #self.fileOpen.triggered.connect(self.openMsg)  # 菜单的点击事件是triggered
+        # QtWidgets.QFileDialog.open(self.actionSave_Settings)
+        self.actionOpen_Setting_File.triggered.connect(lambda: self.Open_Setting_File())
+        self.actionSave_Settings.triggered.connect(lambda: self.Save_Setting_File())
+        # self.fileOpen.triggered.connect(self.openMsg)  # the event of element menu is triggered
         self.Open_Setting_File_init("../config.ini")
     @property
     def Setting(self)  -> dict:
@@ -70,8 +71,8 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print(self.WeightBox.text())
         time_min = int(self.timeEdit_duration.time().toPyTime().minute)
         time_sec = int(self.timeEdit_duration.time().toPyTime().second)
-        self.settings["duration"] = (time_sec+time_min*60)*1000
-        self.settings["duration"] = str(self.settings["duration"])
+        self.settings["duration"] = str(  (time_sec+time_min*60)*1000 )
+        # self.settings["duration"] = str(self.settings["duration"])
 
         print(self.settings["duration"])
 
@@ -122,8 +123,11 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.recordImme_flag = not self.recordImme_flag
         self.pushButton_recordImme.setDisabled(self.recordImme_flag)
         self.timerThread = TimerThread("libcamera-vid --width 1080 --height 1920 --autofocus --qt-preview -o H.264 -t 0")
-        self.timerThread.timerSignal.connect(self.recordAsPlan)
-        self.timerThread.start()
+        if self.recordImme_flag == False:
+            self.timerThread.timerSignal.connect(self.recordAsPlan)
+            self.timerThread.start()
+        else:
+            pass
     def openOutputFolder(self):
         pass
     def recordAsPlan(self,msg):
