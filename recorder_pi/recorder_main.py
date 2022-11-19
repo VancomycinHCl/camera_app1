@@ -30,6 +30,7 @@ class TimerThread(QtCore.QThread):
         logging.info(self.t)
         try:
             self.threadTimer.start()
+            logging.info("A timer will be triggered in the next clock cycle.")
         except Exception as e:
             logging.warning("The function Ptr is not a iterable instance.")
             logging.warning(e)
