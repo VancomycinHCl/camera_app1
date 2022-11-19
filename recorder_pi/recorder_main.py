@@ -1,20 +1,28 @@
 import logging
+import time
 
 import PyQt5.QtCore,PyQt5.QtWidgets
 from record import *
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from initSetting import *
+from PyQt5.QtCore import QThread, pyqtSignal
 import driver.camera_test as A
 import log_generate as log
 
 class TimerThread(QtCore.QThread):
-    def __init__(self):
+    timerSignal = pyqtSignal(str)
+    def __init__(self,t):
         super(TimerThread, self).__init__()
-        self.trigger = QtCore.pyqtSignal(bool)
+        #self.trigger = QtCore.pyqtSignal(bool)
+        self.t = t
     def run(self):
         currentTime = QtCore.QTime.currentTime()
-        print(currentTime.hour())
+        logging.info("A new thread will be created for timing and automatic recording")
+        logging.info(self.t)
+        time.sleep(10)
+        self.timerSignal.emit(str(self.t))
+        #print(currentTime.hour())
 
 class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -99,11 +107,16 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def Save_Setting_File(self):
         self.settings["iniFile"] = QtWidgets.QFileDialog.getOpenFileName()
         logging.debug('Init file saved as %s' %(self.settings["iniFile"][0]))
-
     def recordEachHour_disableImmeButton(self):
         self.recordImme_flag = not self.recordImme_flag
         self.pushButton_recordImme.setDisabled(self.recordImme_flag)
+        self.timerThread = TimerThread("libcamera-vid --width 1080 --height 1920 --autofocus --qt-preview -o H.264 -t 0")
+        self.timerThread.timerSignal.connect(self.recordAsPlan)
+        self.timerThread.start()
     def openOutputFolder(self):
+        pass
+    def recordAsPlan(self,msg):
+        print(msg)
         pass
     def recordImme(self):
         a = self.settings

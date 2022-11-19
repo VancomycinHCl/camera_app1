@@ -10,7 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -133,6 +132,9 @@ class Ui_MainWindow(object):
         self.pushButton_MP4File.clicked.connect(MainWindow.openOutputMP4File)
         self.pushButton.clicked.connect(MainWindow.openOutputFolder)
         self.checkBox_recoedEachHour.clicked.connect(MainWindow.recordEachHour_disableImmeButton)
+
+        #self.checkBox_recoedEachHour
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.HeightBox, self.WeightBox)
         MainWindow.setTabOrder(self.WeightBox, self.pushButton_Preview)
