@@ -73,6 +73,7 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionSave_Settings.triggered.connect(lambda: self.Save_Setting_File())
         # self.fileOpen.triggered.connect(self.openMsg)  # the event of element menu is triggered
         self.Open_Setting_File_init("../config.ini")
+        self.mutexLock = True
     @property
     def Setting(self)  -> dict:
         return self.settings
@@ -136,10 +137,11 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.recordImme_flag = not self.recordImme_flag
         self.pushButton_recordImme.setDisabled(self.recordImme_flag)
         self.timerThread = TimerThread("libcamera-vid --width 1080 --height 1920 --autofocus --qt-preview -o H.264 -t 0")
-        if self.recordImme_flag == False:
+        if self.recordImme_flag == True:
             self.timerThread.timerSignal.connect(self.recordAsPlan)
             self.timerThread.start()
         else:
+            self.timerThread.finished()
             pass
     def openOutputFolder(self):
         pass
