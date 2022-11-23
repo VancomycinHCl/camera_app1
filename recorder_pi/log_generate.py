@@ -1,5 +1,7 @@
 #!/bin/python3
 import logging
+from colorama import Fore
+
 class CameraException(Exception):
     def __init__(self,msg):
         super(CameraException, self).__init__(msg)
@@ -14,10 +16,10 @@ def Log_Init() ->  None:
 
     console = logging.StreamHandler()
     console.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)-12s: [%(levelname)-8s] %(message)s')
+    formatter = logging.Formatter('%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s %(message)s')
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
-    logging.debug('Log System Started')
+    logging.debug(Fore.GREEN+'Log System Started')
     return
 
 
