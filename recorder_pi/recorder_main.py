@@ -12,6 +12,7 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         super(MyWindow, self).__init__()
         self.setupUi(self)
         self.recordImme_flag = False
+        self.showPreview_flag = False
         log.Log_Init()
         self.settings = {
                          "H264_Folder": None,
