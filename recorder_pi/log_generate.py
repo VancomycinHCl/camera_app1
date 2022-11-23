@@ -1,6 +1,6 @@
 #!/bin/python3
 import logging
-from colorama import Fore
+from colorama import Fore,Style
 
 class CameraException(Exception):
     def __init__(self,msg):
@@ -20,7 +20,9 @@ def Log_Init() ->  None:
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
     logging.debug(Fore.GREEN+'Log System Started')
-    return
+    return console
+
+
 
 
 if __name__ == "__main__":
