@@ -37,9 +37,6 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         time_min = int(self.timeEdit_duration.time().toPyTime().minute)
         time_sec = int(self.timeEdit_duration.time().toPyTime().second)
         self.settings["duration"] = str(  (time_sec+time_min*60)*1000 )
-        # self.settings["duration"] = str(self.settings["duration"])
-
-        # print(self.settings["duration"])
 
     def openOutputH264File(self):
         self.settings['H264_Folder'] = PyQt5.QtWidgets.QFileDialog.getExistingDirectory()
@@ -96,9 +93,6 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 logging.info("The timer is not started, so there is no necessary to stop.")
     def openOutputFolder(self):
         pass
-    def recordAsPlan(self,msg):
-        print(msg)
-        pass
     def recordImme(self):
         a1 = self.genCmdInstance()
         A.CaptureVideo(a1)
@@ -117,8 +111,6 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def previewImme(self):
         pass
 
-    def __del__(self):
-        self.internel_timer.finished()
 if __name__ == "__main__":
     import sys
 
