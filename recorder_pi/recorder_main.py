@@ -1,11 +1,13 @@
 import logging
+import os
+
 import PyQt5.QtCore,PyQt5.QtWidgets
 from record import *
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
 import driver.camera_test as A
 import log_generate as log
-
+# import FTP_service.server as FTPserver
 
 class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -13,6 +15,7 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.recordImme_flag = False
         self.showPreview_flag = False
+        self.autoConversion_flag = False
         log.Log_Init()
         self.settings = {
                          "H264_Folder": None,
@@ -95,13 +98,23 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         pass
     def recordImme(self):
         a1 = self.genCmdInstance()
-        A.CaptureVideo(a1)
+        rawFileName,rawFilePath = A.CaptureVideo(a1)
+        if self.autoConversion_flag:
+            destFileName = rawFileName+".mp4"
+            print(destFileName)
+            convertCmd = ["ffmpeg","-r",str(self.settings["framerate"]),"-i",rawFilePath,destFileName]
+            convertCmd = " ".join(convertCmd)
+            print(convertCmd)
+            os.system(convertCmd)
     def genCmdInstance(self):
         a = self.settings
         a1 = A.generateCommand_str_classInline(a)
         logging.info(a1.payload)
         return a1
-
+    def autoConversion(self):
+        self.autoConversion_flag = not self.autoConversion_flag
+        #os.system("ffmpeg -r 80 -i 05_43_11.h264 output.mp4")
+        pass
     def genTimer(self):
         self.threadTimer = QTimer()
         self.threadTimer.timeout.connect(self.recordImme)

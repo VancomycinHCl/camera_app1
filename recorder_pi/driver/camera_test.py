@@ -99,7 +99,7 @@ def generateCommand_str_classInline(config_dict):
     return CommandInstance(payload=cmd_str,type="bash_cmd",config=config_dict)
 
 
-def CaptureVideo(commandInstance):
+def CaptureVideo_0(commandInstance):
     if commandInstance.type == "bash_cmd":
         #try:
             #root_path_str = commandInstance.config[1]["root_path"]
@@ -115,7 +115,25 @@ def CaptureVideo(commandInstance):
         #os.system("mv "+src_path+" "+dest_path)
     return
 
+def CaptureVideo(commandInstance) -> (str,str) or None:
+    """
+    Introduction: Capture the video by executing bash command and return the file path.
 
+    :param commandInstance: Class commandinstance
+    :return: string tuple, first is the current filename and the second is the path
+    """
+
+
+    if commandInstance.type == "bash_cmd":
+        root_path_str = commandInstance.config["root_path"]
+        video_path_str = commandInstance.config["raw_path"]
+        filename_str = datetime.now().strftime("%H_%M_%S")
+        dest_path = "".join(root_path_str+"/"+video_path_str+"/"+filename_str+".h264")
+        src_path = "*.h264"
+        os.system(commandInstance.payload)
+        #os.system("mv "+dest_path+" "+src_path)
+        return (filename_str,dest_path)
+    return
 
 
 if __name__ == "__main__":

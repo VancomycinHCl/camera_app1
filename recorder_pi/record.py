@@ -132,6 +132,7 @@ class Ui_MainWindow(object):
         self.pushButton_MP4File.clicked.connect(MainWindow.openOutputMP4File)
         self.pushButton.clicked.connect(MainWindow.openOutputFolder)
         self.checkBox_recoedEachHour.clicked.connect(MainWindow.recordEachHour_disableImmeButton)
+        self.checkBox_autoConvert.clicked.connect(MainWindow.autoConversion)
 
         #self.checkBox_recoedEachHour
 
