@@ -4,9 +4,11 @@ import os
 import PyQt5.QtCore,PyQt5.QtWidgets
 from record import *
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QTimer
 import driver.camera_test as A
 import log_generate as log
+from datetime import datetime
 # import FTP_service.server as FTPserver
 
 class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -35,20 +37,30 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     @Setting.setter
     def Setting(self,dictIn)  -> None:
         self.settings = dictIn
-    def applySettings(self):
+    def applySettings(self) -> bool:
         print(self.WeightBox.text())
         time_min = int(self.timeEdit_duration.time().toPyTime().minute)
         time_sec = int(self.timeEdit_duration.time().toPyTime().second)
-        self.settings["duration"] = str(  (time_sec+time_min*60)*1000 )
+        if (time_min*60 + time_sec) >= 59*60:
+            QMessageBox.warning(self,
+                                "Time Out Warning!",
+                                "Your time setting has Larger than potential recording period, which will cause access conflict on the device. Please set the video duration smaller than 1 hour")
+            return False
+        else:
+            self.settings["duration"] = str(  (time_sec+time_min*60)*1000 )
+        print(self.settings["duration"])
+        return True
 
     def openOutputH264File(self):
         self.settings['H264_Folder'] = PyQt5.QtWidgets.QFileDialog.getExistingDirectory()
-        self.filePath_H264.setText(self.settings['H264_Folder'])
+        if self.settings['H264_Folder'] != '':
+            self.filePath_H264.setText(self.settings['H264_Folder'])
         print(self.settings['H264_Folder'])
 
     def openOutputMP4File(self):
         self.settings['MP4_Folder'] = PyQt5.QtWidgets.QFileDialog.getExistingDirectory()
-        self.filePath_MP4.setText(self.settings['MP4_Folder'])
+        if self.settings['MP4_Folder'] != "":
+            self.filePath_MP4.setText(self.settings['MP4_Folder'])
         print(self.settings['MP4_Folder'])
 
     def Open_Setting_File(self):
@@ -87,7 +99,10 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_recordImme.setDisabled(self.recordImme_flag)
         self.genTimer()
         if self.recordImme_flag == True:
-            self.threadTimer.start(10000)
+            self.applySettings()
+            timePast_minute = datetime.now().minute
+            timeRemain_msec = (59-timePast_minute)*60*1000
+            self.threadTimer.start(timeRemain_msec)
         else:
             try:
                 self.threadTimer.stop()
@@ -97,6 +112,9 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def openOutputFolder(self):
         pass
     def recordImme(self):
+        self.applySettings()
+        if self.recordImme_flag == True:
+            self.threadTimer.start(60*1000)
         a1 = self.genCmdInstance()
         rawFileName,rawFilePath = A.CaptureVideo(a1)
         if self.autoConversion_flag:
