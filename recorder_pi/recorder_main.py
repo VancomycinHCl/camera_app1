@@ -83,11 +83,15 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.settings = self.settings | camera_config
         self.settings = self.settings | other_config
         self.settings = self.settings | path_config
+
+        self.autoConversion_flag = bool(other_config["auto_convert"])
+
         self.HeightBox.setValue(int(self.settings["height"]))
         self.WeightBox.setValue(int(self.settings["width"]))
         self.FPS.setValue(int(self.settings["framerate"]))
         self.filePath_H264.setText(path_config["root_path"]+"/"+path_config["raw_path"])
         self.filePath_MP4.setText(path_config["root_path"] +"/"+ path_config["mp4_path"])
+        self.checkBox_autoConvert.setChecked(self.autoConversion_flag)
         self.filePath_H264.home(False)
         self.filePath_MP4.home(False)
 

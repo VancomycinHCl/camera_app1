@@ -127,7 +127,7 @@ def CaptureVideo(commandInstance) -> (str,str) or None:
     if commandInstance.type == "bash_cmd":
         root_path_str = commandInstance.config["root_path"]
         video_path_str = commandInstance.config["raw_path"]
-        filename_str = datetime.now().strftime("%H_%M_%S")
+        filename_str = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
         dest_path = "".join(root_path_str+"/"+video_path_str+"/"+filename_str+".h264")
         src_path = "*.h264"
         os.system(commandInstance.payload)

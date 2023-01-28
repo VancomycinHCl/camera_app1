@@ -109,7 +109,7 @@
      <rect>
       <x>150</x>
       <y>50</y>
-      <width>61</width>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -218,7 +218,7 @@
      <rect>
       <x>150</x>
       <y>12</y>
-      <width>61</width>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -309,8 +309,11 @@
     <property name="text">
      <string>Convrt Videos Automatically After Recording</string>
     </property>
-    <property name="checked">
+    <property name="checkable">
      <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
     </property>
     <property name="tristate">
      <bool>false</bool>
