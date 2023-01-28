@@ -12,8 +12,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>413</height>
+    <width>445</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -309,6 +309,12 @@
     <property name="text">
      <string>Convrt Videos Automatically After Recording</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+    <property name="tristate">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_recoedEachHour">
     <property name="geometry">
@@ -342,7 +348,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>460</width>
+     <width>445</width>
      <height>26</height>
     </rect>
    </property>

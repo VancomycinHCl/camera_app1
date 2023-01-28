@@ -19,7 +19,7 @@ def Log_Init() ->  None:
     formatter = logging.Formatter('%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s %(message)s')
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
-    logging.debug(Fore.GREEN+'Log System Started',Fore.RESET)
+    logging.debug(Fore.GREEN+'Log System Started'+Fore.RESET)
     return console
 
 

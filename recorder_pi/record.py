@@ -10,12 +10,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.NonModal)
         MainWindow.setEnabled(True)
-        MainWindow.resize(460, 413)
+        MainWindow.resize(445, 405)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -73,7 +74,7 @@ class Ui_MainWindow(object):
         self.checkBox_launchPreview.setGeometry(QtCore.QRect(20, 224, 351, 19))
         self.checkBox_launchPreview.setObjectName("checkBox_launchPreview")
         self.timeEdit_duration = QtWidgets.QTimeEdit(self.centralwidget)
-        self.timeEdit_duration.setGeometry(QtCore.QRect(150, 12, 81, 31))
+        self.timeEdit_duration.setGeometry(QtCore.QRect(150, 12, 61, 31))
         self.timeEdit_duration.setTime(QtCore.QTime(0, 20, 0))
         self.timeEdit_duration.setObjectName("timeEdit_duration")
         self.pushButton_H264File = QtWidgets.QPushButton(self.centralwidget)
@@ -96,6 +97,8 @@ class Ui_MainWindow(object):
         self.filePath_MP4.setObjectName("filePath_MP4")
         self.checkBox_autoConvert = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_autoConvert.setGeometry(QtCore.QRect(20, 200, 381, 19))
+        self.checkBox_autoConvert.setChecked(True)
+        self.checkBox_autoConvert.setTristate(False)
         self.checkBox_autoConvert.setObjectName("checkBox_autoConvert")
         self.checkBox_recoedEachHour = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_recoedEachHour.setGeometry(QtCore.QRect(20, 250, 241, 19))
@@ -105,7 +108,7 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName("pushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 460, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 445, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -132,10 +135,6 @@ class Ui_MainWindow(object):
         self.pushButton_MP4File.clicked.connect(MainWindow.openOutputMP4File)
         self.pushButton.clicked.connect(MainWindow.openOutputFolder)
         self.checkBox_recoedEachHour.clicked.connect(MainWindow.recordEachHour_disableImmeButton)
-        self.checkBox_autoConvert.clicked.connect(MainWindow.autoConversion)
-
-        #self.checkBox_recoedEachHour
-
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.HeightBox, self.WeightBox)
         MainWindow.setTabOrder(self.WeightBox, self.pushButton_Preview)
