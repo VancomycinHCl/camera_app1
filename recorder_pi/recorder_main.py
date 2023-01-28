@@ -101,7 +101,7 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.recordImme_flag == True:
             self.applySettings()
             timePast_minute = datetime.now().minute
-            timeRemain_msec = (59-timePast_minute)*60*1000
+            timeRemain_msec = (59 - timePast_minute) * 60 * 1000
             self.threadTimer.start(timeRemain_msec)
         else:
             try:
@@ -113,10 +113,17 @@ class MyWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         pass
     def recordImme(self):
         self.applySettings()
-        if self.recordImme_flag == True:
-            self.threadTimer.start(60*1000)
         a1 = self.genCmdInstance()
         rawFileName,rawFilePath = A.CaptureVideo(a1)
+        if self.recordImme_flag == True:
+            timePast_minute = datetime.now().minute
+            timeRemain_msec = (59 - timePast_minute) * 60 * 1000
+            self.threadTimer.start(timeRemain_msec)
+        else:
+            try:
+                self.threadTimer.stop()
+            except Exception as E:
+                print(E)
         if self.autoConversion_flag:
             destFileName = rawFileName+".mp4"
             print(destFileName)
